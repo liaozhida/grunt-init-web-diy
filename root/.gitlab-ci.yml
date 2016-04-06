@@ -35,3 +35,5 @@ run_deploy_product:
   script:
     - docker build -t docker.umiit.cn:5043/{%= page_dir %}-{%= name %}:$CI_BUILD_TAG .
     - docker push docker.umiit.cn:5043/{%= page_dir %}-{%= name %}:$CI_BUILD_TAG
+    - docker tag docker.umiit.cn:5043/{%= page_dir %}-{%= name %}:$CI_BUILD_TAG docker.umiit.cn:5043/{%= page_dir %}-{%= name %}:latest
+    - docker push docker.umiit.cn:5043/{%= page_dir %}-{%= name %}:latest
