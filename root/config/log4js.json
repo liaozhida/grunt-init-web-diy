@@ -1,0 +1,32 @@
+{
+  "appenders": [{
+    "type": "dateFile",
+    "filename": "logs/access.log",
+    "pattern": "-yyyy-MM-dd",
+    "category": "http"
+  }, {
+    "type": "logLevelFilter",
+    "level": "ERROR",
+    "appender": {
+      "type": "categoryFilter",
+      "exclude": "http",
+      "appender": {
+        "type": "dateFile",
+        "filename": "logs/error.log",
+        "pattern": "-yyyy-MM-dd"
+      }
+    }
+  }, {
+    "type": "categoryFilter",
+    "exclude": "http",
+    "appender": {
+      "type": "dateFile",
+      "filename": "logs/app.log",
+      "pattern": "-yyyy-MM-dd"
+    }
+  }],
+  "levels": {
+    "[all]": "INFO",
+    "http": "ALL"
+  }
+}

@@ -1,0 +1,17 @@
+{
+	"log4jsConfig": "path:./config/log4js_all.json",
+
+	"middleware": {
+		"trace": {
+			"enabled": true,
+			"priority": 101,
+			"module": {
+				"name": "kraken-middleware/lib/log-body"
+			}
+		},
+
+		"serverError": {
+			"enabled": false
+		}
+	}
+}

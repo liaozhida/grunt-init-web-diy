@@ -1,0 +1,37 @@
+image: docker.umiit.cn:5043/node:0.12.7
+
+stages:
+  - build
+  - deploy
+
+run_build:
+  stage: build
+  tags:
+    - docker
+  script:
+    - npm install --unsafe-perm
+    - grunt deploy
+  cache:
+    paths:
+    - node_modules/
+    - logs/
+
+run_deploy_test:
+  stage: deploy
+  tags:
+    - shell
+  only:
+    - master
+  script:
+    - docker build -t docker.umiit.cn:5043/{%= page_dir %}-{%= name %}:test .
+    - docker push docker.umiit.cn:5043/{%= page_dir %}-{%= name %}:test
+
+run_deploy_product:
+  stage: deploy
+  tags:
+    - shell
+  only:
+    - tags
+  script:
+    - docker build -t docker.umiit.cn:5043/{%= page_dir %}-{%= name %}:$CI_BUILD_TAG .
+    - docker push docker.umiit.cn:5043/{%= page_dir %}-{%= name %}:$CI_BUILD_TAG

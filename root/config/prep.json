@@ -1,0 +1,3 @@
+{
+	"log4jsConfig": "path:./config/log4js_all.json"
+}

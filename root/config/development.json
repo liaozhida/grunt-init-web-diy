@@ -1,0 +1,79 @@
+{
+	/* begin 添加特殊的配置到里面，比如mongo*/
+	{% if(mongo){ %}
+	"mongoConfig": {
+	     "host": "192.168.99.100",
+	     "database": "{%= mongo%}"
+	},
+	{% } %}
+	{% if(redis){ %}
+	"redisConfig": {
+        "host": "192.168.99.100",
+        "port": 6379
+    },
+	{% } %}
+	{% if(restify){ %}
+	"restifyConfig": {
+		"default": {
+			"connectTimeout": 3000,
+        	"requestTimeout": 10000,
+        	"retry": false,
+        	"url": "http://127.0.0.1:9090"
+		}
+	},
+	{% } %}
+	/* end */
+
+	"log4jsConfig": "path:./config/log4js_dev.json",
+
+	"express": {
+		"view cache": false
+	},
+
+	"middleware": {
+		"static": {
+			"module": {
+				"arguments": ["path:./site"]
+			}
+		},
+
+		"trace": {
+			"enabled": true,
+			"priority": 101,
+			"module": {
+				"name": "kraken-middleware/lib/log-body"
+			}
+		},
+
+		"session": {
+			"enabled": true,
+			"priority": 100,
+			"module": {
+				"name": "express-session",
+				"arguments": [{
+					"secret": "6de5191ab3c401bcb266dff913",
+					"cookie": {
+						"path": "/",
+						"httpOnly": true,
+						"maxAge": 3600000
+					},
+					"resave": true,
+					"saveUninitialized": true,
+					"proxy": null
+				}]
+			}
+		},
+
+		"switchOption": {
+			"enabled": true,
+			"priority": 120,
+			"module": {
+				"arguments": [{}]
+			}
+		},
+
+		"serverError": {
+			"enabled": false
+		}
+	}
+}

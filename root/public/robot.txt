@@ -1,0 +1,4 @@
+# 禁止所有搜索引擎爬虫，请参照http://www.berlinix.com/web/robots.php配置
+
+User-agent: *
+Disallow: /
